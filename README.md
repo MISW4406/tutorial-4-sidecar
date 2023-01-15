@@ -1,11 +1,16 @@
-# Tutorial 3 - Arquitectura Hexagonal
+# Tutorial 4 - Sidecar, Adaptadores y Embajadores
 
-Repositorio con código base para el desarrollo de una arquitectura hexagonal siguiendo los principios y patrones de DDD.
+Repositorio con código base para el desarrollo de sidecars, embajadores y embajadores.
 
+Este repositorio está basado en el repositorio de [arquitectura hexagonal](https://github.com/MISW4406/tutorial-3-arquitectura-hexagonal) visto en el tutorial 3 del curso. Por tal motivo, puede usar ese mismo repositorio para entender algunos detalles que este README no cubre.
 
 ## Estructura del proyecto
 
+Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
+
 El repositorio en su raíz está estructurado de la siguiente forma:
+
+
 
 - **.github**: Directorio donde se localizan templates para Github y los CI/CD workflows 
 - **src**: En este directorio encuentra el código fuente para AeroAlpes. En la siguiente sección se explica un poco mejor la estructura del mismo ([link](https://blog.ionelmc.ro/2014/05/25/python-packaging/#the-structure%3E) para más información)
@@ -30,56 +35,6 @@ Siempre puede ejecutarlo en modo DEBUG:
 flask --app src/aeroalpes/api --debug run
 ```
 
-
-## Request de ejemplo
-
-Los siguientes JSON pueden ser usados para probar el API:
-
-### Reservar
-
-- **Endpoint**: `/vuelos/reserva`
-- **Método**: `POST`
-- **Headers**: `Content-Type='aplication/json'`
-
-```json
-{
-    "itinerarios": [
-        {
-            "odos": [
-                {
-                    "segmentos": [
-                        {
-                            "legs": [
-                                {
-                                    "fecha_salida": "2022-11-22T13:10:00Z",
-                                    "fecha_llegada": "2022-11-22T15:10:00Z",
-                                    "destino": {
-                                        "codigo": "JFK",
-                                        "nombre": "John F. Kennedy International Airport"
-                                    },
-                                    "origen": {
-                                        "codigo": "BOG",
-                                        "nombre": "El Dorado - Bogotá International Airport (BOG)"
-                                    }
-
-                                }
-                            ]
-                        }
-                    ]
-                }
-
-            ]
-        }
-    ]
-}
-```
-
-### Ver Reserva(s)
-
-- **Endpoint**: `/vuelos/reserva/{id}`
-- **Método**: `GET`
-- **Headers**: `Content-Type='aplication/json'`
-
 ## Ejecutar pruebas
 
 ```bash
@@ -90,3 +45,15 @@ coverage run -m pytest
 ```bash
 coverage report
 ```
+
+
+https://grpc.io/docs/languages/python/quickstart/
+
+
+ pyenv virtualenv 3.10.7 sidecar
+ pyenv activate sidecar
+
+ pip install grpcio
+
+ python -m grpc_tools.protoc -Iprotos --python_out=. --pyi_out=. --grpc_python_out=. protos/helloworld.proto
+ python -m grpc_tools.protoc -Iprotos --python_out=. --pyi_out=. --grpc_python_out=. protos/vuelos.proto
