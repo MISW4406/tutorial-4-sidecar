@@ -48,7 +48,7 @@ el cual puede usar para instalar las dependencias de Python para el servidor y c
 pip install -r sidecar-requirements.txt
 ```
 
-### Ejecutar Aplicación
+### Ejecutar Servidor
 
 Desde el directorio principal ejecute el siguiente comando.
 
