@@ -10,8 +10,8 @@ Este repositorio sigue en general la misma estructura del repositorio de origen.
 
 - **src/sidecar**: En este directorio encuentra el código para el adaptador gRPC de AeroAlpes. En este directorio podrá encontrar en el módulo `aeroalpes` la definición de los servicios gRPC y mensajes Protobuf en el directorio `protos`. Por otra parte, el módulo `servicios` implementa las interfaces definidas en los archivos proto anteriomente descritos. Finalmente el módulo `pb2py` aloja los archivos compilados .proto en Python (para ver como compilarlos lea la siguiente sección). El archivo `main.py` corre el servidor y `cliente.py` un cliente que crea una reserva usando el mensaje en JSON definido en el directorio `mensajes`.
 
-### AeroAlpes
-## Ejecutar Aplicación
+## AeroAlpes
+### Ejecutar Aplicación
 
 Desde el directorio principal ejecute el siguiente comando.
 
@@ -25,20 +25,20 @@ Siempre puede ejecutarlo en modo DEBUG:
 flask --app src/aeroalpes/api --debug run
 ```
 
-## Ejecutar pruebas
+### Ejecutar pruebas
 
 ```bash
 coverage run -m pytest
 ```
 
-# Ver reporte de covertura
+### Ver reporte de covertura
 ```bash
 coverage report
 ```
 
-### Sidecar/Adaptador
+## Sidecar/Adaptador
 
-## Instalar librerías
+### Instalar librerías
 
 En el mundo real es probable que ambos proyectos estén en repositorios separados, pero por motivos pedagógicos y de simpleza, 
 estamos dejando ambos proyectos en un mismo repositorio. Sin embargo, usted puede encontrar un archivo `sidecar-requirements.txt`, 
@@ -48,7 +48,7 @@ el cual puede usar para instalar las dependencias de Python para el servidor y c
 pip install -r sidecar-requirements.txt
 ```
 
-## Ejecutar Aplicación
+### Ejecutar Aplicación
 
 Desde el directorio principal ejecute el siguiente comando.
 
@@ -56,7 +56,7 @@ Desde el directorio principal ejecute el siguiente comando.
 python src/sidecar/main.py 
 ```
 
-## Ejecutar Cliente
+### Ejecutar Cliente
 
 Desde el directorio principal ejecute el siguiente comando.
 
@@ -64,7 +64,7 @@ Desde el directorio principal ejecute el siguiente comando.
 python src/sidecar/cliente.py 
 ```
 
-## Compilación gRPC
+### Compilación gRPC
 
 Desde el directorio `src/sidecar` ejecute el siguiente comando.
 
