@@ -8,7 +8,7 @@ Este repositorio está basado en el repositorio de [arquitectura hexagonal](http
 
 Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
 
-- **src/sidecar**: En este directorio encuentra el código para el adaptador gRPC de AeroAlpes. En este directorio podrá encontrar en el módulo `aeroalpes` la definición de los servicios gRPC y mensajes Protobuf en el directorio `protos`. Por otra parte, el módulo `servicios` implementa las interfaces definidas en los archivos proto anteriomente descritos. Finalmente el módulo `pb2py` aloja los archivos compilados .proto en Python (para ver como compilarlos lea la siguiente sección). El archivo `main.py` corre el servidor y `cliente.py` un cliente que crea una reserva usando el mensaje en JSON definido en el directorio `mensajes`.
+- **src/sidecar**: En este directorio encuentra el código para el adaptador gRPC de AeroAlpes. En el, podrá encontrar en el módulo `aeroalpes`, el cual cuenta con la definición de los servicios gRPC y mensajes Protobuf en el directorio `protos`. Por otra parte, el módulo `servicios` implementa las interfaces definidas en los archivos proto anteriomente descritos. Finalmente el módulo `pb2py` aloja los archivos compilados .proto en Python (para ver como compilarlos lea la siguiente sección). El archivo `main.py` corre el servidor y `cliente.py` un cliente que crea una reserva usando el mensaje en JSON definido en el directorio `mensajes`.
 
 ## AeroAlpes
 ### Ejecutar Aplicación
