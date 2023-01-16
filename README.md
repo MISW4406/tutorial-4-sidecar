@@ -1,17 +1,17 @@
 # Tutorial 4 - Sidecar, Adaptadores y Embajadores
 
-Repositorio con código base para el desarrollo de sidecars, adaptadores y embajadores. En este repositorio se presenta como crear un adaptador gRPC para que sistenas externos se puedan comunicar con un sistema legado con API REST. Para conocer más acerca de gRPC en Python puede consultar el siguiente [link](https://grpc.io/docs/languages/python/quickstart/).
+Repositorio con código base para el desarrollo de sidecars, adaptadores y embajadores. En este repositorio se presenta como crear un adaptador gRPC para que sistemas externos se puedan comunicar con un sistema legado usando un API REST. Para conocer más acerca de gRPC en Python puede consultar el siguiente [link](https://grpc.io/docs/languages/python/quickstart/).
 
 Este repositorio está basado en el repositorio de [arquitectura hexagonal](https://github.com/MISW4406/tutorial-3-arquitectura-hexagonal) visto en el tutorial 3 del curso. Por tal motivo, puede usar ese mismo repositorio para entender algunos detalles que este README no cubre.
 
 ## Estructura del proyecto
 
-Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
+Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importantes a mencionar:
 
-- **src/sidecar**: En este directorio encuentra el código para el adaptador gRPC de AeroAlpes. En el, podrá encontrar en el módulo `aeroalpes`, el cual cuenta con la definición de los servicios gRPC y mensajes Protobuf en el directorio `protos`. Por otra parte, el módulo `servicios` implementa las interfaces definidas en los archivos proto anteriomente descritos. Finalmente el módulo `pb2py` aloja los archivos compilados .proto en Python (para ver como compilarlos lea la siguiente sección). El archivo `main.py` corre el servidor y `cliente.py` un cliente que crea una reserva usando el mensaje en JSON definido en el directorio `mensajes`.
+- **src/sidecar**: En este directorio encuentra el código para el adaptador gRPC de AeroAlpes. En el, podrá encontrar el módulo `aeroalpes`, el cual cuenta con la definición de los servicios gRPC y mensajes Protobuf en el directorio `protos`. Por otra parte, el módulo `servicios` implementa las interfaces definidas en los archivos proto anteriomente descritos. Finalmente el módulo `pb2py` aloja los archivos compilados `.proto` en Python (para ver como compilarlos lea la siguientes secciones). El archivo `main.py` corre el servidor y `cliente.py` un cliente que crea una reserva usando un mensaje en JSON definido en el directorio `mensajes`.
 - **.Dockerfile**: Cada servicio cuenta con un Dockerfile para la creación de la imagen y futura ejecución de la misma. El archivo `adaptador.Dockerfile` es el encargado de instalar las dependencias de nuestro servicio en gRPC y los comandos de ejecución. Mientras que el archivo `aeroalpes.Dockerfile` es el encargado de definir nuestro backend.
 - **docker-compose.yml**: Este archivo nos define la forma de componer nuestros servicios. En este caso usted puede ver como creamos el Sidecar/adaptador por medio del uso de una red común para la comunicación entre contenedoras. En el caso de desplegar esta topología en un orquestador de contenedoras, el concepto va a ser similar.
-- **sidecar-aeroalpes.yml**: Este es un archivo template para el despliegue de las contenedoras en mismo Pod en Kubernetes. Podrá observar que solo se expone el puerto del servicio gRPC el cual sirve como adaptador con la contenedora del backend de AeroAlpes. Puede modificar y extender este template para desplegarlo en su cluster personal.
+- **sidecar-aeroalpes.yml**: Este es un archivo template para el despliegue de las contenedoras en mismo Pod en Kubernetes. Podrá observar que solo se expone el puerto del servicio gRPC, el cual sirve como adaptador con la contenedora del backend de AeroAlpes. Puede modificar y extender este template para desplegarlo en su cluster personal.
 
 ## AeroAlpes
 ### Ejecutar Aplicación
