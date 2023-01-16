@@ -9,6 +9,9 @@ Este repositorio está basado en el repositorio de [arquitectura hexagonal](http
 Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
 
 - **src/sidecar**: En este directorio encuentra el código para el adaptador gRPC de AeroAlpes. En el, podrá encontrar en el módulo `aeroalpes`, el cual cuenta con la definición de los servicios gRPC y mensajes Protobuf en el directorio `protos`. Por otra parte, el módulo `servicios` implementa las interfaces definidas en los archivos proto anteriomente descritos. Finalmente el módulo `pb2py` aloja los archivos compilados .proto en Python (para ver como compilarlos lea la siguiente sección). El archivo `main.py` corre el servidor y `cliente.py` un cliente que crea una reserva usando el mensaje en JSON definido en el directorio `mensajes`.
+- **.Dockerfile**: Cada servicio cuenta con un Dockerfile para la creación de la imagen y futura ejecución de la misma. El archivo `adaptador.Dockerfile` es el encargado de instalar las dependencias de nuestro servicio en gRPC y los comandos de ejecución. Mientras que el archivo `aeroalpes.Dockerfile` es el encargado de definir nuestro backend.
+- **docker-compose.yml**: Este archivo nos define la forma de componer nuestros servicios. En este caso usted puede ver como creamos el Sidecar/adaptador por medio del uso de una red común para la comunicación entre contenedoras. En el caso de desplegar esta topología en un orquestador de contenedoras, el concepto va a ser similar.
+- **sidecar-aeroalpes.yml**: Este es un archivo template para el despliegue de las contenedoras en mismo Pod en Kubernetes. Podrá observar que solo se expone el puerto del servicio gRPC el cual sirve como adaptador con la contenedora del backend de AeroAlpes. Puede modificar y extender este template para desplegarlo en su cluster personal.
 
 ## AeroAlpes
 ### Ejecutar Aplicación
@@ -34,6 +37,22 @@ coverage run -m pytest
 ### Ver reporte de covertura
 ```bash
 coverage report
+```
+
+### Crear imagen Docker
+
+Desde el directorio principal ejecute el siguiente comando.
+
+```bash
+docker build . -f aeroalpes.Dockerfile -t aeroalpes/flask
+```
+
+### Ejecutar contenedora (sin compose)
+
+Desde el directorio principal ejecute el siguiente comando.
+
+```bash
+docker run -p 5000:5000 aeroalpes/flask
 ```
 
 ## Sidecar/Adaptador
@@ -70,4 +89,77 @@ Desde el directorio `src/sidecar` ejecute el siguiente comando.
 
 ```bash
 python -m grpc_tools.protoc -Iprotos --python_out=./pb2py --pyi_out=./pb2py --grpc_python_out=./pb2py protos/vuelos.proto
+```
+
+### Crear imagen Docker
+
+Desde el directorio principal ejecute el siguiente comando.
+
+```bash
+docker build . -f adaptador.Dockerfile -t aeroalpes/adaptador
+```
+
+### Ejecutar contenedora (sin compose)
+
+Desde el directorio principal ejecute el siguiente comando.
+
+```bash
+docker run -p 50051:50051 aeroalpes/adaptador
+```
+
+## Docker-compose
+
+Para desplegar toda la arquitectura en un solo comando, usamos `docker-compose`. Para ello, desde el directorio principal, ejecute el siguiente comando:
+
+```bash
+docker-compose up
+```
+
+Si desea detener el ambiente ejecute:
+
+```bash
+docker-compose stop
+```
+
+En caso de querer desplegar dicha topología en el background puede usar el parametro `-d`.
+
+```bash
+docker-compose up -d
+```
+
+## Comandos útiles
+
+### Listar contenedoras en ejecución
+```bash
+docker ps
+```
+
+### Listar todas las contenedoras
+```bash
+docker ps -a
+```
+
+### Parar contenedora
+```bash
+docker stop <id_contenedora>
+```
+
+### Eliminar contenedora
+```bash
+docker rm <id_contenedora>
+```
+
+### Listar imágenes
+```bash
+docker images
+```
+
+### Eliminar imágenes
+```bash
+docker images rm <id_imagen>
+```
+
+### Acceder a una contendora
+```bash
+docker exec -it <id_contenedora> sh
 ```

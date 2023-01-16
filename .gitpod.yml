@@ -11,6 +11,10 @@ tasks:
   - name: Instalar dependencias
     init: gp sync-await bundle
     command: pip install -r requirements.txt
+  - name: Crear imagen Docker AeroAlpes
+    init: docker build . -f aeroalpes.Dockerfile -t aeroalpes/flask
+  - name: Crear imagen Docker Adaptador
+    init: docker build . -f adaptador.Dockerfile -t aeroalpes/adaptador
   
 
 

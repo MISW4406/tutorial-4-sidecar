@@ -1,0 +1,27 @@
+version: '3'
+
+networks:
+  sidecar:
+    driver: bridge
+services:
+  aeroalpes:
+    container_name: aeroalpes
+    hostname: aeroalpes
+    image: aeroalpes/flask 
+    networks:
+      - sidecar
+    labels:
+      SidecarDiscover: "false"
+    ports:
+      - "5000:5000"
+
+  adaptador:
+    image: "aeroalpes/adaptador"
+    container_name: adaptador
+    hostname: adaptador
+    networks:
+      - sidecar
+    environment:
+      - AEROALPES_ADDRESS=aeroalpes
+    ports:
+      - "50051:50051"
