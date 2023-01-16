@@ -1,25 +1,24 @@
-from concurrent import futures
-import logging
-
-import grpc
-import vuelos_pb2
-import vuelos_pb2_grpc
-import requests
 import json
-import os
+import requests
 import datetime
+import os
+
+from aeroalpes.pb2py.vuelos_pb2 import Reserva, RespuestaReserva
+from aeroalpes.pb2py.vuelos_pb2_grpc import VuelosServicer
 
 from google.protobuf.json_format import MessageToDict
 from google.protobuf.timestamp_pb2 import Timestamp
 
-
 TIMESTAMP_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 
-class Vuelos(vuelos_pb2_grpc.VuelosServicer):
+class Vuelos(VuelosServicer):
+    REST_API_HOST: str = 'http://localhost:5000'
+    REST_API_ENDPOINT: str = '/vuelos/reserva'
+
     def CrearReserva(self, request, context):
         dict_obj = MessageToDict(request, preserving_proto_field_name=True)
 
-        r = requests.post('http://localhost:5000/vuelos/reserva', json=dict_obj)
+        r = requests.post(f'{self.REST_API_HOST}{self.REST_API_ENDPOINT}', json=dict_obj)
         if r.status_code == 200:
             respuesta = json.loads(r.text)
 
@@ -31,31 +30,15 @@ class Vuelos(vuelos_pb2_grpc.VuelosServicer):
             fecha_actualizacion = Timestamp()
             fecha_actualizacion.FromDatetime(fecha_actualizacion_dt)
 
-            reserva =  vuelos_pb2.Reserva(id=respuesta.get('id'), 
+            reserva =  Reserva(id=respuesta.get('id'), 
                 itinerarios=respuesta.get('itinerarios',[]), 
                 fecha_actualizacion=fecha_actualizacion, 
                 fecha_creacion=fecha_creacion)
 
-            return vuelos_pb2.RespuestaReserva(mensaje='OK', reserva=reserva)
+            return RespuestaReserva(mensaje='OK', reserva=reserva)
         else:
-            return vuelos_pb2.RespuestaReserva(mensaje=f'Error: {r.status_code}')
+            return RespuestaReserva(mensaje=f'Error: {r.status_code}')
 
     def ConsultarReserva(self, request, context):
-        pass
-    
-
-def serve():
-    port = '50051'
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    vuelos_pb2_grpc.add_VuelosServicer_to_server(Vuelos(), server)
-    server.add_insecure_port('[::]:' + port)
-    server.start()
-    print("Server started, listening on " + port)
-    server.wait_for_termination()
-
-
-if __name__ == '__main__':
-    logging.basicConfig()
-    serve()
-
-
+        # TODO Complete esta funcionalidad
+        raise NotImplementedError

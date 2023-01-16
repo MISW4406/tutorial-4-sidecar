@@ -1,13 +1,11 @@
 from __future__ import print_function
 
 from google.protobuf.timestamp_pb2 import Timestamp
+from aeroalpes.pb2py import vuelos_pb2
+from aeroalpes.pb2py import vuelos_pb2_grpc
 
 import logging
-
 import grpc
-
-import vuelos_pb2
-import vuelos_pb2_grpc
 import datetime
 import os
 import json

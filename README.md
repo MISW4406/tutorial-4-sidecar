@@ -1,6 +1,6 @@
 # Tutorial 4 - Sidecar, Adaptadores y Embajadores
 
-Repositorio con código base para el desarrollo de sidecars, embajadores y embajadores.
+Repositorio con código base para el desarrollo de sidecars, adaptadores y embajadores. En este repositorio se presenta como crear un adaptador gRPC para que sistenas externos se puedan comunicar con un sistema legado con API REST. Para conocer más acerca de gRPC en Python puede consultar el siguiente [link](https://grpc.io/docs/languages/python/quickstart/).
 
 Este repositorio está basado en el repositorio de [arquitectura hexagonal](https://github.com/MISW4406/tutorial-3-arquitectura-hexagonal) visto en el tutorial 3 del curso. Por tal motivo, puede usar ese mismo repositorio para entender algunos detalles que este README no cubre.
 
@@ -8,19 +8,9 @@ Este repositorio está basado en el repositorio de [arquitectura hexagonal](http
 
 Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
 
-El repositorio en su raíz está estructurado de la siguiente forma:
+- **src/sidecar**: En este directorio encuentra el código para el adaptador gRPC de AeroAlpes. En este directorio podrá encontrar en el módulo `aeroalpes` la definición de los servicios gRPC y mensajes Protobuf en el directorio `protos`. Por otra parte, el módulo `servicios` implementa las interfaces definidas en los archivos proto anteriomente descritos. Finalmente el módulo `pb2py` aloja los archivos compilados .proto en Python (para ver como compilarlos lea la siguiente sección). El archivo `main.py` corre el servidor y `cliente.py` un cliente que crea una reserva usando el mensaje en JSON definido en el directorio `mensajes`.
 
-
-
-- **.github**: Directorio donde se localizan templates para Github y los CI/CD workflows 
-- **src**: En este directorio encuentra el código fuente para AeroAlpes. En la siguiente sección se explica un poco mejor la estructura del mismo ([link](https://blog.ionelmc.ro/2014/05/25/python-packaging/#the-structure%3E) para más información)
-- **tests**: Directorio con todos los archivos de prueba, tanto unitarios como de integración. Sigue el estándar [recomendado por pytest](https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html) y usado por [boto](https://github.com/boto/boto).
-- **.gitignore**: Archivo con la definición de archivos que se deben ignorar en el repositorio GIT
-- **.gitpod.yml**: Archivo que define las tareas/pasos a ejecutar para configurar su workspace en Gitpod
-- **README.md**: El archivo que está leyendo :)
-- **requirements.txt**: Archivo con los requerimientos para el correcto funcionamiento del proyecto (librerias Python)
-
-
+### AeroAlpes
 ## Ejecutar Aplicación
 
 Desde el directorio principal ejecute el siguiente comando.
@@ -46,14 +36,38 @@ coverage run -m pytest
 coverage report
 ```
 
+### Sidecar/Adaptador
 
-https://grpc.io/docs/languages/python/quickstart/
+## Instalar librerías
 
+En el mundo real es probable que ambos proyectos estén en repositorios separados, pero por motivos pedagógicos y de simpleza, 
+estamos dejando ambos proyectos en un mismo repositorio. Sin embargo, usted puede encontrar un archivo `sidecar-requirements.txt`, 
+el cual puede usar para instalar las dependencias de Python para el servidor y cliente gRPC.
 
- pyenv virtualenv 3.10.7 sidecar
- pyenv activate sidecar
+```bash
+pip install -r sidecar-requirements.txt
+```
 
- pip install grpcio
+## Ejecutar Aplicación
 
- python -m grpc_tools.protoc -Iprotos --python_out=. --pyi_out=. --grpc_python_out=. protos/helloworld.proto
- python -m grpc_tools.protoc -Iprotos --python_out=. --pyi_out=. --grpc_python_out=. protos/vuelos.proto
+Desde el directorio principal ejecute el siguiente comando.
+
+```bash
+python src/sidecar/main.py 
+```
+
+## Ejecutar Cliente
+
+Desde el directorio principal ejecute el siguiente comando.
+
+```bash
+python src/sidecar/cliente.py 
+```
+
+## Compilación gRPC
+
+Desde el directorio `src/sidecar` ejecute el siguiente comando.
+
+```bash
+python -m grpc_tools.protoc -Iprotos --python_out=./pb2py --pyi_out=./pb2py --grpc_python_out=./pb2py protos/vuelos.proto
+```
