@@ -1,0 +1,7 @@
+{
+    "image": "mcr.microsoft.com/vscode/devcontainers/python:3.12",
+    "postCreateCommand": "pip install -r requirements.txt && pip install -r sidecar-requirements.txt",
+    "forwardPorts": [5000],
+    "features": {},
+    "remoteUser": "vscode"
+}
