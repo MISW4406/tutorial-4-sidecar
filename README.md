@@ -85,7 +85,7 @@ python src/sidecar/cliente.py
 
 ### Compilación gRPC
 
-Desde el directorio `src/sidecar` ejecute el siguiente comando.
+Desde el directorio `src/sidecar/aeroalpes` ejecute el siguiente comando.
 
 ```bash
 python -m grpc_tools.protoc -Iprotos --python_out=./pb2py --pyi_out=./pb2py --grpc_python_out=./pb2py protos/vuelos.proto
