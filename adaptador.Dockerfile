@@ -8,3 +8,4 @@ RUN pip install --no-cache-dir -r sidecar-requirements.txt
 COPY . .
 
 CMD [ "python", "./src/sidecar/main.py" ]
+

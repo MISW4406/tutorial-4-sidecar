@@ -167,3 +167,4 @@ docker images rm <id_imagen>
 ```bash
 docker exec -it <id_contenedora> sh
 ```
+
