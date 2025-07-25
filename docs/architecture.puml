@@ -1,7 +1,11 @@
 @startuml
-' Vista de paquetes basada en arquitectura hexagonal
+' Vista de paquetes basada en arquitectura hexagonal.
+' Este diagrama refleja el scaffolding inicial del proyecto
+' siguiendo el enfoque hexagonal.
+' Cada paquete corresponde a un directorio real
+' dentro del repositorio.
 
-package "src" {
+package "src" as src_pkg {
     package "aeroalpes" {
         package "api" as api
         note right of api
@@ -27,9 +31,10 @@ package "src" {
             package "vuelos" as vuelos
         }
         note right of modulos
-            Dominios de negocio implementados
-            siguiendo el estilo hexagonal (aplicacion,
-            dominio e infraestructura).
+            Conjunto de dominios de negocio. Cada
+            dominio se organiza siguiendo la
+            estructura hexagonal:
+            aplicacion, dominio e infraestructura.
         end note
 
         package "seedwork" as seedwork
@@ -40,7 +45,8 @@ package "src" {
     }
 
     package "sidecar" as sidecar_pkg {
-        package "aeroalpes" {
+        ' Contiene el adaptador ubicado en src/sidecar
+        package "aeroalpes" as sidecar_aeroalpes {
             package "pb2py"
             package "protos"
             package "servicios"
@@ -48,8 +54,15 @@ package "src" {
         package "mensajes"
     }
     note right of sidecar_pkg
-        Adaptador gRPC que comunica
-        clientes externos con AeroAlpes.
+        Adaptador gRPC que actua
+        como puerto de entrada hacia
+        los modulos de negocio de
+        AeroAlpes.
+    end note
+    note left of src_pkg
+        Codigo fuente principal del proyecto
+        organizado segun el estilo
+        hexagonal.
     end note
 }
 @enduml
