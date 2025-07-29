@@ -1,0 +1,16 @@
+{
+    "name": "tutorial-4-sidecar",
+    "image": "mcr.microsoft.com/vscode/devcontainers/python:3.12",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2.12.2": {
+            "version": "28.3.2"
+        },
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.12.11"
+        }
+    },
+    "postCreateCommand": "bash .devcontainer/setup.sh",
+    "runArgs": ["--init", "--privileged"],
+    "forwardPorts": [5000, 50051],
+    "remoteUser": "vscode"
+}

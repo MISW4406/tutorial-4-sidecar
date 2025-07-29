@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.12
 
 EXPOSE 50051/tcp
 
@@ -8,3 +8,4 @@ RUN pip install --no-cache-dir -r sidecar-requirements.txt
 COPY . .
 
 CMD [ "python", "./src/sidecar/main.py" ]
+

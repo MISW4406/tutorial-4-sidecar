@@ -7,7 +7,7 @@ services:
   aeroalpes:
     container_name: aeroalpes
     hostname: aeroalpes
-    image: aeroalpes/flask 
+    image: aeroalpes/flask
     networks:
       - sidecar
     labels:
@@ -25,3 +25,4 @@ services:
       - AEROALPES_ADDRESS=aeroalpes
     ports:
       - "50051:50051"
+

@@ -4,6 +4,10 @@ Repositorio con código base para el desarrollo de sidecars, adaptadores y embaj
 
 Este repositorio está basado en el repositorio de [arquitectura hexagonal](https://github.com/MISW4406/tutorial-3-arquitectura-hexagonal) visto en el tutorial 3 del curso. Por tal motivo, puede usar ese mismo repositorio para entender algunos detalles que este README no cubre.
 
+## Arquitectura
+
+[![](https://img.plantuml.biz/plantuml/svg/ZLHDRzim3BtxLn2vR0E67VOB6dGRUYo6OjU2aHX7ZIog-iWI3Fdle-JOYTCOY2wMzIZfyV693p5XIBcppIVuO-G7D877zqo98gmmeaOW1nZUiqcaKWu86zfZomvjqtXKMsm95Z6e1VnhGCQuXXGOhQSu85FKcmLW1FcEeED444oxIS3h2LB6JwSz6vSYFBsyF0FjVQQOECBE8Foo6BVVndXokfxMVBnOiLkRjjxTJsUklmBBUAnBee4ox4IW0w1I51aGB1QvgEYdKKZTHONUgFEMOoKp_CpG-G3tXBHfkLpQ5IsaE0Vm8PDGAOkIWYAV-2uo7UiyS3dDB-esbT0QSeaMjz6Dd6-bwhTHBzwPnGA9il5L6uUTKRDnEzeOLSdEu9c6JFhf67QSKVUKyEIu7zmP9tIAaevQ5cfWf0RKIVAehwAZ64DKqGnaGMfXB9zV2dn6RusgllawsQRxIu30k7N0KiHSdzcNkueMYVHV3jkQw_0pa-C7k8pbgjX6ZOREGjner5HUHvTbSH8kdG4YUmu9NV7yPMEuGRYNVDeMej6aCFIC-_chtxOtUyIvWqZm63qkp_dJhxxxmmBcJCQfc6C6ZXHsfhZmOl_nnciX5_5jS7aVS2NtERTn-rAZBzO9qFv-VgngLfN56cFCwN59GzWd2evhcuAbvBmiEVSgZmeVcmUPImV_3m00)](https://editor.plantuml.com/uml/ZLHDRzim3BtxLn2vR0E67VOB6dGRUYo6OjU2aHX7ZIog-iWI3Fdle-JOYTCOY2wMzIZfyV693p5XIBcppIVuO-G7D877zqo98gmmeaOW1nZUiqcaKWu86zfZomvjqtXKMsm95Z6e1VnhGCQuXXGOhQSu85FKcmLW1FcEeED444oxIS3h2LB6JwSz6vSYFBsyF0FjVQQOECBE8Foo6BVVndXokfxMVBnOiLkRjjxTJsUklmBBUAnBee4ox4IW0w1I51aGB1QvgEYdKKZTHONUgFEMOoKp_CpG-G3tXBHfkLpQ5IsaE0Vm8PDGAOkIWYAV-2uo7UiyS3dDB-esbT0QSeaMjz6Dd6-bwhTHBzwPnGA9il5L6uUTKRDnEzeOLSdEu9c6JFhf67QSKVUKyEIu7zmP9tIAaevQ5cfWf0RKIVAehwAZ64DKqGnaGMfXB9zV2dn6RusgllawsQRxIu30k7N0KiHSdzcNkueMYVHV3jkQw_0pa-C7k8pbgjX6ZOREGjner5HUHvTbSH8kdG4YUmu9NV7yPMEuGRYNVDeMej6aCFIC-_chtxOtUyIvWqZm63qkp_dJhxxxmmBcJCQfc6C6ZXHsfhZmOl_nnciX5_5jS7aVS2NtERTn-rAZBzO9qFv-VgngLfN56cFCwN59GzWd2evhcuAbvBmiEVSgZmeVcmUPImV_3m00)
+
 ## Estructura del proyecto
 
 Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importantes a mencionar:
@@ -85,7 +89,7 @@ python src/sidecar/cliente.py
 
 ### Compilación gRPC
 
-Desde el directorio `src/sidecar` ejecute el siguiente comando.
+Desde el directorio `src/sidecar/aeroalpes` ejecute el siguiente comando.
 
 ```bash
 python -m grpc_tools.protoc -Iprotos --python_out=./pb2py --pyi_out=./pb2py --grpc_python_out=./pb2py protos/vuelos.proto
@@ -163,3 +167,4 @@ docker images rm <id_imagen>
 ```bash
 docker exec -it <id_contenedora> sh
 ```
+
