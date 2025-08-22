@@ -1,4 +1,5 @@
 # Tutorial 4 - Sidecar, Adaptadores y Embajadores
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&repo=MISW4406/tutorial-4-sidecar) 
 
 Repositorio con código base para el desarrollo de sidecars, adaptadores y embajadores. En este repositorio se presenta como crear un adaptador gRPC para que sistemas externos se puedan comunicar con un sistema legado usando un API REST. Para conocer más acerca de gRPC en Python puede consultar el siguiente [link](https://grpc.io/docs/languages/python/quickstart/).
 
